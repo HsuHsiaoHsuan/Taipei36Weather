@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import idv.hsu.taipei36weather.R
 import kotlinx.android.synthetic.main.item_pic.view.*
+import kotlinx.android.synthetic.main.item_txt.view.*
 
 class WeatherAdapter(
     private var data: List<String>,
@@ -44,10 +45,12 @@ class WeatherAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(dataType[position]) {
             DataTypeEnum.TXT -> {
-                (holder as WeatherTxtViewHolder).data
+                val txtHolder = (holder as WeatherTxtViewHolder)
+                txtHolder.data = data[position]
+                txtHolder.itemView.tv_content.text = data[position]
             }
             DataTypeEnum.PIC -> {
-
+//                val picHolder = (holder as WeatherPicViewHolder)
             }
         }
     }
@@ -59,11 +62,11 @@ class WeatherAdapter(
     fun setDataAndType(data: List<String>, type: List<DataTypeEnum>) {
         this.data = data
         this.dataType = type
-
+        notifyDataSetChanged()
     }
 
     inner class WeatherTxtViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val data: String = ""
+        var data: String = ""
         init {
             itemView.tag = this
             view.setOnClickListener(onItemClickListener)

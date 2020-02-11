@@ -3,15 +3,19 @@ package idv.hsu.taipei36weather.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import idv.hsu.taipei36weather.data.DataInjection
 import idv.hsu.taipei36weather.R
 import idv.hsu.taipei36weather.data.normal36.Normal36Response
+import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
     override lateinit var presenter: MainContract.Presenter
+    private lateinit var weatherAdapter: WeatherAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +26,20 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             this
         )
         presenter.getNormal36Taipei()
+
+        weatherAdapter = WeatherAdapter(data = emptyList(), dataType = emptyList())
+        weatherAdapter.setOnItemClickListener(listener = View.OnClickListener {v: View? ->
+            v?.run {
+                val holder = this.tag as WeatherAdapter.WeatherTxtViewHolder
+                Toast.makeText(this@MainActivity, holder.data, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        rv_content.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = weatherAdapter
+        }
     }
 
     override fun showLoadingIndicator(activate: Boolean) {
@@ -46,6 +64,10 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 Log.d("FREEMAN", "$list")
                 Log.d("FREEMAN", "---------------")
                 Log.d("FREEMAN", "$typeList")
+
+                runOnUiThread {
+                    weatherAdapter.setDataAndType(data = list, type = typeList)
+                }
             } else {
                 runOnUiThread {
                     Toast.makeText(this, "沒有資料啊啊啊~~", Toast.LENGTH_SHORT).show()
