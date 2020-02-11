@@ -1,4 +1,4 @@
-package idv.hsu.taipei36weather.ui
+package idv.hsu.taipei36weather.ui.main
 
 enum class DataTypeEnum(val value: Int) {
     TXT(0),

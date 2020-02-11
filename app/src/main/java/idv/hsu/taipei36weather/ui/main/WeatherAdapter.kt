@@ -1,13 +1,10 @@
-package idv.hsu.taipei36weather.ui
+package idv.hsu.taipei36weather.ui.main
 
 import android.view.LayoutInflater
-import android.view.OrientationEventListener
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import idv.hsu.taipei36weather.R
-import kotlinx.android.synthetic.main.item_pic.view.*
 import kotlinx.android.synthetic.main.item_txt.view.*
 
 class WeatherAdapter(
@@ -50,7 +47,6 @@ class WeatherAdapter(
                 txtHolder.itemView.tv_content.text = data[position]
             }
             DataTypeEnum.PIC -> {
-//                val picHolder = (holder as WeatherPicViewHolder)
             }
         }
     }

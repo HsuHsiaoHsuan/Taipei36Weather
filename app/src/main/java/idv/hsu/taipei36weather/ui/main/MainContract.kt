@@ -1,4 +1,4 @@
-package idv.hsu.taipei36weather.ui
+package idv.hsu.taipei36weather.ui.main
 
 import idv.hsu.taipei36weather.data.normal36.Normal36Response
 

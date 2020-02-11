@@ -1,16 +1,14 @@
-package idv.hsu.taipei36weather.ui
+package idv.hsu.taipei36weather.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import idv.hsu.taipei36weather.data.DataInjection
 import idv.hsu.taipei36weather.R
+import idv.hsu.taipei36weather.data.DataInjection
 import idv.hsu.taipei36weather.data.normal36.Normal36Response
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.StringBuilder
 
 class MainActivity : AppCompatActivity(), MainContract.View {
 
@@ -27,8 +25,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         )
         presenter.getNormal36Taipei()
 
-        weatherAdapter = WeatherAdapter(data = emptyList(), dataType = emptyList())
-        weatherAdapter.setOnItemClickListener(listener = View.OnClickListener {v: View? ->
+        weatherAdapter = WeatherAdapter(
+            data = emptyList(),
+            dataType = emptyList()
+        )
+        weatherAdapter.setOnItemClickListener(listener = View.OnClickListener { v: View? ->
             v?.run {
                 val holder = this.tag as WeatherAdapter.WeatherTxtViewHolder
                 Toast.makeText(this@MainActivity, holder.data, Toast.LENGTH_SHORT).show()
@@ -53,17 +54,16 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                 val typeList = mutableListOf<DataTypeEnum>()
 
                 for (time in data.records.location[0].weatherElement[0].time) {
-                    val result = StringBuilder(time.startTime).append("\n").append(time.endTime).append("\n")
-                        .append(time.parameter.parameterName).append(time.parameter.parameterUnit)
+                    val result =
+                        StringBuilder(time.startTime).append("\n").append(time.endTime).append("\n")
+                            .append(time.parameter.parameterName)
+                            .append(time.parameter.parameterUnit)
                     list.add(result.toString())
                     typeList.add(DataTypeEnum.TXT)
 
                     list.add("來插花的")
                     typeList.add(DataTypeEnum.PIC)
                 }
-                Log.d("FREEMAN", "$list")
-                Log.d("FREEMAN", "---------------")
-                Log.d("FREEMAN", "$typeList")
 
                 runOnUiThread {
                     weatherAdapter.setDataAndType(data = list, type = typeList)
