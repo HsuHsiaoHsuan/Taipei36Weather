@@ -7,8 +7,6 @@ interface MainContract {
     interface View {
         var presenter: Presenter
 
-        fun showLoadingIndicator(activate: Boolean)
-
         fun showNormal36Taipei(success: Boolean, data: Normal36Response?)
     }
 

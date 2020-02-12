@@ -1,7 +1,5 @@
 package idv.hsu.taipei36weather.data.source
 
-import android.util.Log
-import com.orhanobut.logger.Logger
 import idv.hsu.taipei36weather.network.WeatherApiBuilder
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

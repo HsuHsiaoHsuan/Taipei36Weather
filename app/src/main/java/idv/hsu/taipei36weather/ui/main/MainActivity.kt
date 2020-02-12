@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import idv.hsu.taipei36weather.R
 import idv.hsu.taipei36weather.data.DataInjection
 import idv.hsu.taipei36weather.data.normal36.Normal36Response
+import idv.hsu.taipei36weather.ui.detail.DetailActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             v?.run {
                 val holder = this.tag as WeatherAdapter.WeatherTxtViewHolder
                 Toast.makeText(this@MainActivity, holder.data, Toast.LENGTH_SHORT).show()
+                startActivity(DetailActivity.newIntent(this@MainActivity, holder.data))
             }
         })
 
@@ -41,10 +43,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = weatherAdapter
         }
-    }
-
-    override fun showLoadingIndicator(activate: Boolean) {
-
     }
 
     override fun showNormal36Taipei(success: Boolean, data: Normal36Response?) {
