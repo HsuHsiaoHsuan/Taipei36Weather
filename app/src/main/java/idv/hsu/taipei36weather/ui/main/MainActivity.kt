@@ -1,5 +1,6 @@
 package idv.hsu.taipei36weather.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -20,6 +21,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val sharedPref = getSharedPreferences("Taipei36Weather", Context.MODE_PRIVATE)
+        if (!sharedPref.getBoolean("FIRST_OPEN", true)) {
+            Toast.makeText(this@MainActivity, "歡迎回來", Toast.LENGTH_SHORT).show()
+        } else {
+            sharedPref.edit().putBoolean("FIRST_OPEN", false).apply()
+        }
+
         presenter = MainPresenter(
             DataInjection.provideWeatherRepository(),
             this
@@ -33,7 +41,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         weatherAdapter.setOnItemClickListener(listener = View.OnClickListener { v: View? ->
             v?.run {
                 val holder = this.tag as WeatherAdapter.WeatherTxtViewHolder
-                Toast.makeText(this@MainActivity, holder.data, Toast.LENGTH_SHORT).show()
                 startActivity(DetailActivity.newIntent(this@MainActivity, holder.data))
             }
         })

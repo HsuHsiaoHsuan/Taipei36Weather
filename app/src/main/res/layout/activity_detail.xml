@@ -6,20 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.detail.DetailActivity">
 
-    <View
+    <TextView
         android:id="@+id/v_a"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="#0000FF"
+        android:gravity="center"
+        android:text="A"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FFF"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <TextView
         android:id="@+id/v_b"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="#0000FF"
+        android:gravity="center"
+        android:text="B"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="H,1:1"
         app:layout_constraintEnd_toEndOf="parent" />
