@@ -16,7 +16,10 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        binding.minT = intent.getStringExtra("DATA")
+        binding.apply {
+            minT = intent.getStringExtra("DATA")
+            invalidateAll()
+        }
     }
 
     companion object {
